@@ -1,49 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import products from './products';
 import Panel from './panel';
+import { Product, CartItem, Total } from './details';
 import * as API from './api';
 import logo from './logo.svg';
 import './App.css';
 
-const Name = props => (
-	<div style={{fontWeight: 'bold', fontSize: 20, height: 30 }}>
-		{props.children}
-	</div>
-);
-
-const Product = props => {
-	const { name, price } = props.product;
-	return (
-		<div className="product">
-			<Name>{name}</Name>
-			<div>${price}</div>
-			<button onClick={() => props.onClick(props.product)}>
-				Add to cart
-			</button>
-		</div>
-	);
-};
-
-const CartItem = props => {
-	const { name, price, quantity } = props.item;
-	return (
-		<div className="product">
-			<Name>{name}</Name>
-			<div>Units: {quantity} @ ${price}</div>
-			<div>Total: ${price * quantity}</div>
-			<button onClick={props.onClick}>Remove</button>
-		</div>
-	);
-};
-
-//const backgroundColor = 'yellow';
+const calcTotal = cart => {
+	return Math.random() * 200;
+}
 
 const App = () => {
 	const cart = API.fetchCart();
 	const addItem = API.getItemAdder(cart);
 	const handleProductClick = (p) => {
 		addItem(p);
+		setTotalCost(calcTotal(cart));
 	};
+	const [totalCost, setTotalCost] = useState(calcTotal(cart));
+
   return (
     <div className="App">
       <header className="App-header">
@@ -59,8 +34,10 @@ const App = () => {
 						/>
 					))}
 				</Panel>
+
 				<Panel title="Shopping Cart" style={{right: 0}}>
 					{cart.map(c => <CartItem key={c.name} item={c} />)}
+					<Total value={totalCost} />
 				</Panel>
 			</div>
     </div>

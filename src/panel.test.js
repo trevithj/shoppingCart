@@ -27,3 +27,24 @@ describe('Panel', () => {
 	});
 })
 
+describe('Format', () => {
+	const format = (num) => {
+		return num.toLocaleString('nz', {
+			style:'decimal',
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
+	};
+
+
+	it('should show trailing zeros', () => {
+		const result = format(123);
+		expect(result).toEqual('123.00');
+	});
+
+	it('should show only two digits', () => {
+		const result = format(123.45678);
+		expect(result).toEqual('123.46');
+	});
+
+});

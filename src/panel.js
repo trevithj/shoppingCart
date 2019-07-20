@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import products from './products';
-import { fetchCart, saveCart } from './api';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
 const panelStyle = {
 	position: 'absolute',
 	top: 0,
-	width: '48%',
 	backgroundColor: '#ddd'
 };
 
