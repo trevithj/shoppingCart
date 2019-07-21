@@ -59,25 +59,22 @@ export const CartItem = props => {
 				Units: {quantity} @ ${ format(price) }
 			</Fixed>
 			<Fixed width="50%">
-				Total: ${ format(price * quantity) }
+				Line total: ${ format(price * quantity) }
 			</Fixed>
 		</div>
 	);
 };
 
-export const Total = props => {
-	const { value } = props;
-	const total = format(value);
-	return (
-		<Fixed>
-			<div style={{
-				borderTop: 'solid thin black',
-				fontSize: 16,
-				lineHeight: 2,
-				paddingRight: 10,
-			}}>
-				Total for this order: ${format(value)}
-			</div>
-		</Fixed>
-	);
-};
+export const Total = props => (
+	<Fixed>
+		<div style={{
+			borderTop: 'solid thin black',
+			fontSize: 16,
+			lineHeight: 2,
+			paddingRight: 10,
+		}}>
+			Total for this order: ${format(props.value)}
+		</div>
+	</Fixed>
+);
+

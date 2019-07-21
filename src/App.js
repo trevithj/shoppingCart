@@ -7,17 +7,27 @@ import logo from './logo.svg';
 import './App.css';
 
 const calcTotal = cart => {
-	return Math.random() * 200;
+	return cart.reduce((sum, item) => {
+		const total = item.price * item.quantity;
+		return sum + total;
+	}, 0);
 }
 
 const App = () => {
 	const cart = API.fetchCart();
+	const [totalCost, setTotalCost] = useState(calcTotal(cart));
 	const addItem = API.getItemAdder(cart);
+	const removeItem = API.getItemRemover(cart);
+
 	const handleProductClick = (p) => {
 		addItem(p);
 		setTotalCost(calcTotal(cart));
 	};
-	const [totalCost, setTotalCost] = useState(calcTotal(cart));
+
+	const handleCartItemClick = (c) => {
+		const newCart = removeItem(c.name);
+		setTotalCost(calcTotal(newCart));
+	};
 
   return (
     <div className="App">
@@ -36,7 +46,13 @@ const App = () => {
 				</Panel>
 
 				<Panel title="Shopping Cart" style={{right: 0}}>
-					{cart.map(c => <CartItem key={c.name} item={c} />)}
+					{cart.map(c => (
+						<CartItem
+							key={c.name}
+							item={c}
+							onClick={handleCartItemClick}
+						/>
+					))}
 					<Total value={totalCost} />
 				</Panel>
 			</div>

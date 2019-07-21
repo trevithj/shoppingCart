@@ -1,5 +1,37 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Shopping Cart
+
+## Getting started
+ 
+The app was built using `node v8.11.4` and `npm v6.4.1`. I run `git v2.7.4` at time of writing. To kick off the app, do the following:
+- Clone the repository: `git clone https://github.com/trevithj/shoppingCart.git`
+- Install dependencies: `cd shoppingCart && npm install`
+- Start the web server: `npm start`
+
+## The App
+
+The shopping cart app consists of two main panels, and a pretty spinning icon in the header bar. The latter came out of the box, so I left it in. To the panels:
+Both panels are somewhat reactive, taking up a little under half teh available screen width. So the app should be workable even on small mobile devices.
+
+### Products panel
+
+The left panel is the list of the products in the hardware store. This is driven off a static collection imported directly into the app. Ideally it would be fetched from a `.json` file, so that the fetch can be easily replaced with a call to a back-end source. I didn't do this simply because it was easier in teh dev cycle to get the list running first, and then make decisions around the overall display after I saw what the list looked like on screen.
+Clicking on the `Add to cart` button puts one item into the user's cart.
+
+### Shopping Cart panel
+
+The right panel lists details and quantities of items currently in the user's cart. It also shows line totals for each item, and the total order price at the bottom of the panel. 
+Clicking on the `Remove` button will remove all instances of that item, regardless of quantity.
+
+## The Architecture
+
+The app uses local state in the `App` component to control re-rendering. This is done only by use of the `totalCost` property, which is sufficient for this purpose since it gets recalculated on every change of the cart items, and is pretty much guaranteed to produce a different value from the immediately previous time.
+An obvious enhancement would be to put the full `products` list and the `cart` contents into state also. For this, `redux` would seem to make most sense, since we could use thunks to control the saving/loading of either data structures from persistant data sources. I decided against this approach here, simply because the default app structure didn't come with redux, and because I wanted to trial using hooks for this purpose.
+Another enhancement would be to reduce the number of times the `cart` contents get read. At present, this happens each time App is rendered. This could be done by making App a class and adding initialization in the constructor, but then would need refactoring of the state hook. Alternative would be to use an effect hook, or a custom hook.
+
+# Original React App notes
+
 ## Available Scripts
 
 In the project directory, you can run:

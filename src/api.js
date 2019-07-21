@@ -10,14 +10,17 @@ export const saveCart = cart => {
 //format for product: {name, price}
 //format for cart item: {name, price, quantity}
 export const getItemAdder = cart => product => {
-	const items = cart.filter(item => {
-		return item.name === product.name;
-	});
-	if(items.length > 1) throw Error(`Duplicate item in cart: ${product.name}`);
-	if(items.length === 0) {
+	const index = cart.map(item => item.name).indexOf(product.name);
+	if( index === -1 ) {
 		cart.push({...product, quantity: 1});
 	} else {
-		items[0].quantity +=1;
+		cart[index].quantity += 1;
 	}
 	saveCart(cart);
+}
+
+export const getItemRemover = cart => name => {
+	cart = cart.filter(item => item.name !== name);
+	saveCart(cart);
+	return cart;
 }

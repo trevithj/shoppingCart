@@ -39,8 +39,7 @@ products
 product
 • Must be able to add a product to the cart
 • Must be able to view current products in the cart
-• Cart products should be listed in this format: product name, price, quan-
-tity, total, remove link
+• Cart products should be listed in this format: product name, price, quantity, total, remove link
 • Product totals should be tallied to give an overall total
 • Must be able to remove a product from the cart
 • Adding an existing product will only update existing cart product quantity
