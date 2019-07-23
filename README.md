@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Getting started
  
-The app was built using `node v8.11.4` and `npm v6.4.1`. I run `git v2.7.4` at time of writing. To kick off the app, do the following:
+The app was built using `node v8.11.4` and `yarn v1.17.3`. I run `git v2.7.4` at time of writing. To kick off the app, do the following:
 - Clone the repository: `git clone https://github.com/trevithj/shoppingCart.git`
-- Install dependencies: `cd shoppingCart && npm install`
-- Start the web server: `npm start`
+- Install dependencies: `cd shoppingCart && yarn`
+- Start the web server: `yarn run start`
 
 ## The App
 
