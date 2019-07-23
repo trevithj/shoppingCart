@@ -1,33 +1,15 @@
-import React, { useState } from 'react';
-import products from './products';
+import React, { useContext } from 'react';
 import Panel from './panel';
 import { Product, CartItem, Total } from './details';
-import * as API from './api';
+import { StoreContext } from './store';
 import logo from './logo.svg';
 import './App.css';
 
-const calcTotal = cart => {
-	return cart.reduce((sum, item) => {
-		const total = item.price * item.quantity;
-		return sum + total;
-	}, 0);
-}
-
 const App = () => {
-	const cart = API.fetchCart();
-	const [totalCost, setTotalCost] = useState(calcTotal(cart));
-	const addItem = API.getItemAdder(cart);
-	const removeItem = API.getItemRemover(cart);
-
-	const handleProductClick = (p) => {
-		addItem(p);
-		setTotalCost(calcTotal(cart));
-	};
-
-	const handleCartItemClick = (c) => {
-		const newCart = removeItem(c.name);
-		setTotalCost(calcTotal(newCart));
-	};
+	const { state, addItem, removeItem } = useContext(StoreContext);
+	const { products, cart, totalCost } = state;
+	const handleProductClick = (p) => addItem(cart, p);
+	const handleCartItemClick = (c) => removeItem(cart, c.name);
 
   return (
     <div className="App">
